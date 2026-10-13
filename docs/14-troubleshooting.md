@@ -3,6 +3,9 @@
 | Symptom | Cause | Fix | Details |
 |---|---|---|---|
 | `CONFIG PARSE ERROR` in the prompt | theme JSON saved with a UTF-8 BOM | `scripts/windows/Remove-JsonBom.ps1 <theme>` | [06](06-oh-my-posh.md#config-parse-error-in-the-prompt) |
+| `git push`: `Permission denied (publickey)` | GitHub key has a custom name (`id_ed25519_github`), SSH only tries default names | `~/.ssh/config` with `IdentityFile` + `IdentitiesOnly yes` | [10](10-git-ssh-gpg.md#6-ssh-keys-for-github-push--pull) |
+| passphrase asked on every push/pull | no ssh-agent running (service disabled) | enable `ssh-agent` (admin), `ssh-add` the key | [10](10-git-ssh-gpg.md#passphrase-once-per-login-ssh-agent) |
+| `ssh-add`: `Error connecting to agent` | ssh-agent service stopped/disabled | `Set-Service ssh-agent -StartupType Automatic; Start-Service ssh-agent` | same |
 | red `9009` in cmd prompt | exit code: command not found (`clear` in cmd → use `cls`) | run any successful command | [06](06-oh-my-posh.md#red-9009-cmd--127-zsh-in-the-prompt) |
 | `127` next to ✘ in zsh | exit code: command not found (typo) | — | same |
 | battery segment missing | desktop PC has no battery | use the `_pc` themes | [06](06-oh-my-posh.md#battery-segment-missing) |

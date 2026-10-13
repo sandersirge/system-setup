@@ -1,0 +1,7 @@
+# ~/.ssh/config  (C:\Users\<you>\.ssh\config) — see docs/10-git-ssh-gpg.md
+# GitHub: always use the key registered on the account
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_github
+    IdentitiesOnly yes

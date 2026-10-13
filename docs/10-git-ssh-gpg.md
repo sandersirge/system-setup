@@ -1,7 +1,8 @@
 # 10 — Git, SSH keys and GPG commit signing (Windows)
 
 SSH keys were moved from the old computer by copying `~/.ssh`. This page covers the GPG signing
-key and Git config. Placeholders: `YOUR_KEY_ID`, `you@example.com`, `OLD_USER`.
+key, Git config, and making SSH pick the right key for GitHub ([section 6](#6-ssh-keys-for-github-push--pull)).
+Placeholders: `YOUR_KEY_ID`, `you@example.com`, `OLD_USER`.
 
 ## Do you need the old computer's `.gitconfig`?
 
@@ -92,6 +93,99 @@ git log -1 --show-signature      # after a commit
 
 The public key is safe to share; **never** share the secret export. A key with several `uid`s
 (e-mails) verifies commits made with any of those e-mails.
+
+## 6. SSH keys for GitHub (push / pull)
+
+### Symptom
+
+```text
+git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+```
+
+even though the key is on your GitHub account.
+
+### Cause
+
+Without `~/.ssh/config`, SSH only offers the **default key names** (`id_rsa`, `id_ecdsa`,
+`id_ed25519`, …). A key with a custom name such as `id_ed25519_github` is never tried.
+
+### Diagnose (no secrets shown)
+
+```powershell
+ssh -v -T git@github.com 2>&1 | Select-String 'Will attempt|Offering|Authenticated'   # which keys SSH tries
+Get-ChildItem $HOME\.ssh                                                              # which keys exist
+Invoke-RestMethod https://github.com/<github-user>.keys                               # public keys on the account
+ssh-keygen -lf $HOME\.ssh\id_ed25519_github.pub                                       # fingerprint of a local key
+```
+
+Compare the public key on GitHub (Settings → SSH and GPG keys) with your local `.pub` files.
+
+### Fix: `~/.ssh/config`
+
+`C:\Users\<you>\.ssh\config` (no extension, UTF-8 **without** BOM, LF or CRLF both fine). Repo copy:
+[`configs/windows/ssh/config`](../configs/windows/ssh/config).
+
+```sshconfig
+# GitHub: always use the key registered on the account
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_github
+    IdentitiesOnly yes
+```
+
+- `IdentityFile` — the key to use for this host.
+- `IdentitiesOnly yes` — offer **only** that key (avoids "Too many authentication failures" when
+  you have several keys).
+- Add one `Host` block per service (e.g. `Host gitlab.com` with its own key).
+
+Check what SSH will use, then test:
+
+```powershell
+ssh -G github.com | Select-String '^(identityfile|identitiesonly|user) '
+ssh -T git@github.com      # "Hi <user>! You've successfully authenticated..."
+```
+
+Git for Windows' `ssh` and Windows' OpenSSH (`C:\Windows\System32\OpenSSH\ssh.exe`) both read
+`~/.ssh/config`.
+
+### Passphrase once per login: ssh-agent
+
+A key with a passphrase asks for it on every `git push` / `pull` / `fetch`. Let the Windows
+ssh-agent remember it. **Administrator** PowerShell (the service is disabled by default):
+
+```powershell
+Set-Service ssh-agent -StartupType Automatic
+Start-Service ssh-agent
+```
+
+Normal PowerShell:
+
+```powershell
+ssh-add $HOME\.ssh\id_ed25519_github
+ssh-add -l          # lists the loaded key
+```
+
+Make Git use Windows' OpenSSH, so it talks to that agent (Git's bundled ssh has its own agent):
+
+```powershell
+git config --global core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
+```
+
+`Error connecting to agent: No such file or directory` from `ssh-add` = the ssh-agent service
+isn't running.
+
+### First push of a new repo
+
+```powershell
+git remote add origin git@github.com:<github-user>/<repo>.git
+git branch -M main
+git push -u origin main
+```
+
+If the key has a passphrase and no agent is running, run the push in an interactive terminal so
+you can type it.
 
 ## Alternative: sign with your SSH key
 

@@ -87,6 +87,7 @@ along the way is documented.
       - [Configure Git](docs/10-git-ssh-gpg.md#3-configure-git)
       - [Verify signing](docs/10-git-ssh-gpg.md#4-verify-signing)
       - [Public key to GitHub / GitLab](docs/10-git-ssh-gpg.md#5-add-the-public-key-to-github--gitlab)
+      - [SSH keys for GitHub: `~/.ssh/config`, ssh-agent, first push](docs/10-git-ssh-gpg.md#6-ssh-keys-for-github-push--pull)
       - [Alternative: SSH signing](docs/10-git-ssh-gpg.md#alternative-sign-with-your-ssh-key)
     - [11 — Docker Desktop WSL integration](docs/11-docker.md)
     - [12 — JetBrains Toolbox migration and cleanup](docs/12-jetbrains-toolbox.md)
@@ -186,6 +187,7 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 - [ ] tmux plugins installed (`ls ~/.tmux/plugins` shows 11) — [08](docs/08-tmux.md)
 - [ ] `ls` (eza) and `lls` (logo-ls) show icons; `cat`, `ping`, `--help` are colored — [09](docs/09-ls-colors-and-cli-tools.md)
 - [ ] Git identity + GPG signing set, `git log --show-signature` shows a good signature — [10](docs/10-git-ssh-gpg.md)
+- [ ] `ssh -T git@github.com` greets you by name; ssh-agent holds the key — [10](docs/10-git-ssh-gpg.md#6-ssh-keys-for-github-push--pull)
 - [ ] Docker Desktop WSL integration enabled where needed — [11](docs/11-docker.md)
 - [ ] Health check passes — [14](docs/14-troubleshooting.md#quick-health-check-powershell-all-distros)
 
@@ -199,6 +201,7 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 | [`configs/windows/clink/`](configs/windows/clink) | `oh-my-posh.lua` (cmd prompt) | [01](docs/01-windows-terminal-and-fonts.md#3-oh-my-posh-on-windows-powershell-cmd-git-bash) |
 | [`configs/windows/git-bash/`](configs/windows/git-bash) | `.bashrc`, `.bash_profile` | [01](docs/01-windows-terminal-and-fonts.md#3-oh-my-posh-on-windows-powershell-cmd-git-bash) |
 | [`configs/windows/git/`](configs/windows/git) | `gitconfig.example` | [10](docs/10-git-ssh-gpg.md#3-configure-git) |
+| [`configs/windows/ssh/`](configs/windows/ssh) | `config` (GitHub key selection) | [10](docs/10-git-ssh-gpg.md#6-ssh-keys-for-github-push--pull) |
 | [`configs/wsl/zsh/`](configs/wsl/zsh) | `zshrc`, `zshrc.kali`, `zshrc.fedora-omz-p10k` | [04](docs/04-zsh.md#3-the-zshrc-kalis-shared-by-all-distros), [07](docs/07-oh-my-zsh-powerlevel10k.md) |
 | [`configs/wsl/tmux/`](configs/wsl/tmux) | `tmux.conf` | [08](docs/08-tmux.md) |
 | [`configs/wsl/p10k/`](configs/wsl/p10k) | `p10k.zsh` (Rainbow, fixed icons) | [07](docs/07-oh-my-zsh-powerlevel10k.md) |
