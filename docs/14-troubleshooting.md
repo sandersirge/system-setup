@@ -12,6 +12,7 @@
 | Arch/Fedora show Tux icon | OMP detects `archlinux`/`fedoralinux`, icons keyed `arch`/`fedora` | `os` segment `options` mapping | [06](06-oh-my-posh.md#os-icon-fix-arch--fedora-showed-tux) |
 | `The prediction 'ListView' is temporarily disabled…` | PowerShell window/pane smaller than 50×5 | harmless; enlarge the window | [01a](01a-powershell-profile.md#this-setups-profile-line-by-line) |
 | `.ps1 cannot be loaded because running scripts is disabled` | execution policy `Restricted`, or downloaded file blocked | `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, `Unblock-File` | [01a](01a-powershell-profile.md#execution-policy-running-ps1-files) |
+| admin window from the Start menu has another theme / font | it's Windows PowerShell 5.1 (own profile with an old theme) in the classic console | update 5.1's profile; default terminal → Windows Terminal; use PowerShell 7 admin | [01a](01a-powershell-profile.md#windows-powershell-51-and-admin-windows-look-different) |
 | profile error at PowerShell start | broken line in `$PROFILE` | `pwsh -NoProfile`, then `. $PROFILE` | [01a](01a-powershell-profile.md#reload-test-measure) |
 | Windows Terminal shows a settings warning banner | invalid `settings.json` | validate with `ConvertFrom-Json`, restore `.bak` | [01](01-windows-terminal-and-fonts.md#before-editing-back-up-after-editing-validate) |
 | cmd has no Oh My Posh | cmd can't run prompt engines | install Clink + `oh-my-posh.lua` | [01](01-windows-terminal-and-fonts.md#3-oh-my-posh-on-windows-powershell-cmd-git-bash) |

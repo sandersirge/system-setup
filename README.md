@@ -26,6 +26,7 @@ along the way is documented.
       - [Which file is `$PROFILE`?](docs/01a-powershell-profile.md#which-file-is-profile)
       - [Create and edit it](docs/01a-powershell-profile.md#create-and-edit-it)
       - [This setup's profile, line by line](docs/01a-powershell-profile.md#this-setups-profile-line-by-line)
+      - [Windows PowerShell 5.1 and admin windows look different](docs/01a-powershell-profile.md#windows-powershell-51-and-admin-windows-look-different)
       - [Modules](docs/01a-powershell-profile.md#modules)
       - [Execution policy](docs/01a-powershell-profile.md#execution-policy-running-ps1-files)
       - [Reload, test, measure](docs/01a-powershell-profile.md#reload-test-measure)
@@ -196,7 +197,8 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 | Path | Contents | Docs |
 |---|---|---|
 | [`configs/oh-my-posh/themes/`](configs/oh-my-posh/themes) | `maxed`, `maxed_pc`, `maxed_bash`, `maxed_bash_pc` | [06](docs/06-oh-my-posh.md#themes-in-this-repo) |
-| [`configs/windows/powershell/`](configs/windows/powershell) | `Microsoft.PowerShell_profile.ps1` | [01a](docs/01a-powershell-profile.md) |
+| [`configs/windows/powershell/`](configs/windows/powershell) | `Microsoft.PowerShell_profile.ps1` (PowerShell 7) | [01a](docs/01a-powershell-profile.md) |
+| [`configs/windows/windows-powershell/`](configs/windows/windows-powershell) | `Microsoft.PowerShell_profile.ps1` (Windows PowerShell 5.1) | [01a](docs/01a-powershell-profile.md#windows-powershell-51-and-admin-windows-look-different) |
 | [`configs/windows/windows-terminal/`](configs/windows/windows-terminal) | full `settings.json`, profile defaults, Git Bash profile | [01](docs/01-windows-terminal-and-fonts.md#2-windows-terminal-settings-settingsjson) |
 | [`configs/windows/clink/`](configs/windows/clink) | `oh-my-posh.lua` (cmd prompt) | [01](docs/01-windows-terminal-and-fonts.md#3-oh-my-posh-on-windows-powershell-cmd-git-bash) |
 | [`configs/windows/git-bash/`](configs/windows/git-bash) | `.bashrc`, `.bash_profile` | [01](docs/01-windows-terminal-and-fonts.md#3-oh-my-posh-on-windows-powershell-cmd-git-bash) |

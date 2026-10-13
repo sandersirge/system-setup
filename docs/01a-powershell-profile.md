@@ -66,6 +66,48 @@ Set-Alias ll Get-ChildItem
 function .. { Set-Location .. }
 ```
 
+## Windows PowerShell 5.1 and admin windows look different
+
+Symptom: an elevated window from the Start menu shows another Oh My Posh theme, a different font,
+no transparency, and the title *"Administrator: Windows PowerShell"*, while an admin tab inside
+Windows Terminal looks right (with the `# ADMIN` segment).
+
+Two separate causes:
+
+**1. It is Windows PowerShell 5.1, which has its own profile.** The Start-menu entry
+*Windows PowerShell* runs `powershell.exe` (5.1), not `pwsh.exe` (7). 5.1 reads
+`~\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`, which here still loaded an
+old theme (`takuya.omp.json`). It now matches the PowerShell 7 profile (`maxed_pc` +
+Terminal-Icons + ListView) and keeps the Chocolatey tab-completion block — repo copy:
+[`configs/windows/windows-powershell/Microsoft.PowerShell_profile.ps1`](../configs/windows/windows-powershell/Microsoft.PowerShell_profile.ps1).
+
+```powershell
+powershell.exe -NoProfile -Command '$PROFILE'     # 5.1's profile path
+notepad "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+```
+
+Modules and PSReadLine are installed per edition; check them from 5.1:
+
+```powershell
+powershell.exe -NoProfile -Command "(Get-Module PSReadLine -ListAvailable)[0].Version; [bool](Get-Module Terminal-Icons -ListAvailable)"
+```
+
+`PredictionViewStyle` needs PSReadLine 2.2+ (5.1 ships 2.0; `Install-Module PSReadLine -Scope CurrentUser -Force` from 5.1 if needed).
+
+**2. It opened in the classic console window (conhost), not Windows Terminal.** conhost has its own
+font (not the Nerd Font) and colors, so prompts never look right there. Make Windows Terminal
+open every console app, including elevated ones from the Start menu:
+
+- Windows Terminal → Settings → **Startup** → **Default terminal application** → **Windows Terminal** → Save
+  (or Windows Settings → System → For developers → Terminal → Windows Terminal).
+
+Better still, use PowerShell 7 for admin work:
+
+- Start menu: **PowerShell 7 (x64)** → *Run as administrator*, or
+- Windows Terminal: right-click a profile in the `˅` menu → *Run as administrator*, or
+- a dedicated admin profile in `settings.json`: copy the PowerShell profile with a new `guid` and
+  `"name": "PowerShell (Admin)"`, `"elevate": true` ([01](01-windows-terminal-and-fonts.md#2-windows-terminal-settings-settingsjson)).
+
 ## Modules
 
 ```powershell
