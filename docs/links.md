@@ -50,6 +50,12 @@
 - fzf — <https://github.com/junegunn/fzf>
 - Kali default zshrc (source of the shared config) — <https://gitlab.com/kalilinux/packages/kali-defaults>
 
+## tmux + Neovim (planned, [16](16-tmux-neovim-advanced.md))
+
+- Josean Martinez — How to set up tmux — <https://www.josean.com/posts/tmux-setup>
+- Josean Martinez — How to set up Neovim (2024) — <https://www.josean.com/posts/how-to-setup-neovim-2024>
+- Josean Martinez — dev environment files — <https://github.com/josean-dev/dev-environment-files>
+
 ## Homebrew
 
 - Homebrew — <https://brew.sh/>

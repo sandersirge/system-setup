@@ -99,6 +99,10 @@ along the way is documented.
       - [Option 1: new account](docs/13-windows-account-rename.md#option-1-recommended-new-account)
       - [Option 2: rename the folder](docs/13-windows-account-rename.md#option-2-not-recommended-rename-the-folder)
       - [What to move for this setup](docs/13-windows-account-rename.md#what-to-move-for-this-setup)
+  - **Planned (TBD)**
+    - [15 — Installed apps on this computer](docs/15-installed-apps.md)
+    - [16 — Advanced tmux + Neovim setup](docs/16-tmux-neovim-advanced.md)
+      - [References for later](docs/16-tmux-neovim-advanced.md#references-for-later)
   - **Reference**
     - [14 — Troubleshooting (every error and its fix)](docs/14-troubleshooting.md)
       - [Quick health check for all distros](docs/14-troubleshooting.md#quick-health-check-powershell-all-distros)

@@ -1,5 +1,7 @@
 # 08 — tmux + TPM plugins
 
+> An advanced tmux + Neovim setup is planned in [16](16-tmux-neovim-advanced.md).
+
 Config: [`configs/wsl/tmux/tmux.conf`](../configs/wsl/tmux/tmux.conf) → `~/.tmux.conf` (same in all six distros).
 
 ## Install
