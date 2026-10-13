@@ -1,0 +1,14 @@
+# Backups created by the scripts
+*.bak
+*.bak.*
+
+# Never commit key exports
+*.asc
+*.gpg
+trust.txt
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

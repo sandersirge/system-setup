@@ -1,0 +1,6 @@
+#!/bin/sh
+# Minimal xdg-open for WSL: hand URLs and files to Windows
+case "$1" in
+  *://*) exec explorer.exe "$1" ;;
+  *)     exec explorer.exe "$(wslpath -w "$1")" ;;
+esac

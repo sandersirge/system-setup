@@ -1,0 +1,14 @@
+{
+    "backgroundImage": "%USERPROFILE%\\Downloads\\wallpaper.jpg",
+    "backgroundImageOpacity": 0.05,
+    "colorScheme": "Dimidium",
+    "cursorColor": "#67FFEA",
+    "cursorShape": "filledBox",
+    "font": {
+        "face": "JetBrainsMono Nerd Font",
+        "size": 14,
+        "weight": "extra-bold"
+    },
+    "opacity": 70,
+    "useAcrylic": true
+}

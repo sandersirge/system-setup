@@ -1,0 +1,19 @@
+# Global git config for Windows (~/.gitconfig) with GPG commit signing.
+# Replace the placeholders, or set each value with the matching `git config --global` command
+# from docs/10-git-ssh-gpg.md.
+
+[user]
+	name = Your Name
+	email = you@example.com
+	signingkey = YOUR_GPG_KEY_ID
+
+[core]
+	autocrlf = true
+	safecrlf = warn
+
+[gpg]
+	program = C:\\Program Files\\GnuPG\\bin\\gpg.exe
+	format = openpgp
+
+[commit]
+	gpgsign = true

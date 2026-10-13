@@ -1,0 +1,11 @@
+# /etc/wsl.conf (inside each distro, edit with sudo)
+# Docs: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconf
+# Apply changes with `wsl --terminate <distro>` from Windows.
+
+[boot]
+systemd=true
+
+# Default user when the distro starts. Only needed if
+# `wsl --manage <distro> --set-default-user <user>` is not available.
+[user]
+default=yourusername

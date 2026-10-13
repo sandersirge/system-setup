@@ -1,0 +1,11 @@
+# Everything is LF so shell scripts and dotfiles work inside WSL even with core.autocrlf=true
+* text=auto eol=lf
+
+# Windows-only files
+*.ps1 text eol=crlf
+*.reg text eol=crlf
+
+# Binary
+*.png binary
+*.ico binary
+*.ttf binary
