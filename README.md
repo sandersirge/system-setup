@@ -1,4 +1,4 @@
-# comp-setup
+# system-setup
 
 Documentation, configs and scripts for setting up this whole computer: Windows 11 with Windows
 Terminal, a Nerd Font, PowerShell, cmd and Git Bash prompts, Git/GPG signing, Docker Desktop and

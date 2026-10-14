@@ -14,7 +14,7 @@ repo has a `.wezterm.lua`. Windows version: [`configs/windows/wezterm/.wezterm.l
 
 ```powershell
 winget install wez.wezterm
-Copy-Item "$HOME\Downloads\comp-setup\configs\windows\wezterm\.wezterm.lua" "$HOME\.wezterm.lua"
+Copy-Item "$HOME\Downloads\system-setup\configs\windows\wezterm\.wezterm.lua" "$HOME\.wezterm.lua"
 ```
 
 | Change vs. his config | Why |
@@ -101,13 +101,13 @@ Expand-Archive "$env:TEMP\tree-sitter.zip" -DestinationPath "$env:LOCALAPPDATA\P
 
 ```bash
 # WSL Ubuntu
-ln -s /mnt/c/Users/sande/Downloads/comp-setup/configs/nvim ~/.config/nvim
+ln -s /mnt/c/Users/sande/Downloads/system-setup/configs/nvim ~/.config/nvim
 ```
 
 ```powershell
 # Windows — run in YOUR shell (a link created from a packaged app such as the Claude desktop
 # app is redirected into the app's private AppData copy and Neovim never sees it)
-New-Item -ItemType Junction -Path $env:LOCALAPPDATA\nvim -Target $HOME\Downloads\comp-setup\configs\nvim
+New-Item -ItemType Junction -Path $env:LOCALAPPDATA\nvim -Target $HOME\Downloads\system-setup\configs\nvim
 ```
 
 Check: `:echo $MYVIMRC` → the `init.lua` path. First start installs all plugins (lazy.nvim),

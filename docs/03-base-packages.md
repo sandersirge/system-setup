@@ -13,11 +13,11 @@ baseline with each distro's own package manager. They need `sudo` (run as your n
 
 ## Run
 
-The repo is reachable from every distro under `/mnt/c/...` (here: `C:\Users\sande\Downloads\comp-setup`
-→ `/mnt/c/Users/sande/Downloads/comp-setup`):
+The repo is reachable from every distro under `/mnt/c/...` (here: `C:\Users\sande\Downloads\system-setup`
+→ `/mnt/c/Users/sande/Downloads/system-setup`):
 
 ```bash
-cd /mnt/c/Users/sande/Downloads/comp-setup/scripts/wsl/base-packages
+cd /mnt/c/Users/sande/Downloads/system-setup/scripts/wsl/base-packages
 chmod +x archlinux.sh
 ./archlinux.sh
 ```
@@ -25,7 +25,7 @@ chmod +x archlinux.sh
 Or straight from PowerShell:
 
 ```powershell
-wsl -d archlinux --cd ~ -e bash /mnt/c/Users/sande/Downloads/comp-setup/scripts/wsl/base-packages/archlinux.sh
+wsl -d archlinux --cd ~ -e bash /mnt/c/Users/sande/Downloads/system-setup/scripts/wsl/base-packages/archlinux.sh
 ```
 
 ## What gets installed
