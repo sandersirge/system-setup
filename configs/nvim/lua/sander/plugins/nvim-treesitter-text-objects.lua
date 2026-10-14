@@ -103,9 +103,19 @@ return {
       ["[I"] = { "goto_previous_end", "@conditional.outer", "textobjects", "Prev conditional end" },
       ["[L"] = { "goto_previous_end", "@loop.outer", "textobjects", "Prev loop end" },
     }
+    -- textobjects bug: in a buffer without a treesitter parser, find_best_range returns {} instead of nil
+    -- and move.lua crashes ("attempt to perform arithmetic on local 'score'"). Only use the treesitter
+    -- move when the buffer has a parser; otherwise fall back to Vim's built-in meaning of the key.
+    local function has_parser()
+      return vim.treesitter.get_parser(0, nil, { error = false }) ~= nil
+    end
     for lhs, v in pairs(moves) do
       keymap.set({ "n", "x", "o" }, lhs, function()
-        move[v[1]](v[2], v[3])
+        if has_parser() then
+          move[v[1]](v[2], v[3])
+        elseif vim.fn.mode() == "n" then
+          vim.cmd("normal! " .. vim.v.count1 .. lhs)
+        end
       end, { desc = v[4] })
     end
 
