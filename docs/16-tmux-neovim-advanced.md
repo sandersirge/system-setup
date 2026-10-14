@@ -1,11 +1,11 @@
-# 16 — Neovim (Josean's setup on Windows + WSL) and advanced tmux
+# 16 — Neovim and tmux (Josean's setup on Windows + WSL)
 
 Neovim configured after Josean Martinez's guide and his current
 [dev-environment-files](https://github.com/josean-dev/dev-environment-files) (Neovim 0.11+ version),
 step by step and validated on **WSL Ubuntu** and **Windows**. One config, in
 [`configs/nvim/`](../configs/nvim), shared by both. Lua namespace: `sander`.
 
-The advanced **tmux** part of his setup is still **TBD** ([at the end](#tmux-advanced-setup-tbd)).
+His **tmux** setup is in [08 — tmux](08-tmux.md) ([summary below](#tmux-joseans-setup)).
 
 ## Terminal: WezTerm (instead of iTerm2)
 
@@ -225,10 +225,13 @@ packages built with them); `vim.lsp` warns about unknown filetypes listed by tai
 
 Neovim-specific errors and fixes are in [14 — Troubleshooting](14-troubleshooting.md).
 
-## tmux advanced setup (TBD)
+## tmux (Josean's setup)
 
-Planned: Josean's tmux setup (prefix, keys, theme, his plugin list) on top of [08 — tmux](08-tmux.md).
-
+Done — documented in [08 — tmux](08-tmux.md): prefix `Ctrl+a`, `|` / `-` splits, `prefix h/j/k/l`
+resize, `prefix m` maximize, vi copy mode, `escape-time 10` (no Esc delay in Neovim), Tokyo Night
+status bar (matches the Neovim colors), resurrect with pane contents + continuum, and the extra
+plugins. With vim-tmux-navigator on both sides, `Ctrl+h/j/k/l` moves between tmux panes and Neovim
+splits as one.
 ## References
 
 - Josean Martinez — *How to set up tmux* — <https://www.josean.com/posts/tmux-setup>
