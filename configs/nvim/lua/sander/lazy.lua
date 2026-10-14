@@ -11,8 +11,7 @@ if not vim.uv.fs_stat(lazypath) then -- vim.uv: vim.loop is deprecated since Neo
 end
 vim.opt.rtp:prepend(lazypath)
 
--- { import = "sander.plugins.lsp" } is added in the LSP step
-require("lazy").setup({ { import = "sander.plugins" } }, {
+require("lazy").setup({ { import = "sander.plugins" }, { import = "sander.plugins.lsp" } }, {
   checker = {
     enabled = true,
     notify = false,
