@@ -10,5 +10,6 @@ trust.txt
 # Editor / OS
 .vscode/
 .idea/
+.obsidian/
 Thumbs.db
 desktop.ini
