@@ -112,8 +112,11 @@ along the way is documented.
       - [Verify](docs/16-tmux-neovim-advanced.md#6-verify)
       - [tmux (Josean's setup) → 08](docs/16-tmux-neovim-advanced.md#tmux-joseans-setup)
       - [References](docs/16-tmux-neovim-advanced.md#references)
-  - **Planned (TBD)**
+  - **Apps**
     - [15 — Installed apps on this computer](docs/15-installed-apps.md)
+      - [Reinstall everything at once](docs/15-installed-apps.md#reinstall-everything-at-once)
+      - [Web apps (Chrome)](docs/15-installed-apps.md#web-apps-chrome)
+      - [Manual installs](docs/15-installed-apps.md#manual-installs)
   - **Reference**
     - [14 — Troubleshooting (every error and its fix)](docs/14-troubleshooting.md)
       - [Quick health check for all distros](docs/14-troubleshooting.md#quick-health-check-powershell-all-distros)
@@ -156,6 +159,7 @@ tmux ([08](docs/08-tmux.md)), eza / logo-ls / grc / bat ([09](docs/09-ls-colors-
 | 8. Docker | Docker Desktop → WSL integration | [11](docs/11-docker.md) |
 | 9. IDEs | JetBrains Toolbox, `New-JetBrainsShortcuts.ps1` | [12](docs/12-jetbrains-toolbox.md) |
 | 10. Neovim + WezTerm (run in your own PowerShell) | `.\scripts\windows\Install-Neovim.ps1` | [16 › scripts](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
+| 11. Desktop apps | `winget import -i configs\windows\winget\apps.json` + manual installs | [15](docs/15-installed-apps.md) |
 
 If PowerShell refuses to run the scripts, see [01a › Execution policy](docs/01a-powershell-profile.md#execution-policy-running-ps1-files).
 
@@ -229,6 +233,7 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 | [`configs/wsl/wsl-conf/`](configs/wsl/wsl-conf) | `wsl.conf.example` | [02](docs/02-wsl-basics.md#arch-linux-create-a-sudo-user-fresh-install-starts-as-root) |
 | [`configs/nvim/`](configs/nvim) | Neovim config (Windows + WSL): `init.lua`, `lua/sander/…`, `after/`, `lazy-lock.json` | [16](docs/16-tmux-neovim-advanced.md#3-layout) |
 | [`configs/windows/wezterm/`](configs/windows/wezterm) | `.wezterm.lua` (WezTerm, iTerm2 replacement) | [16](docs/16-tmux-neovim-advanced.md#terminal-wezterm-instead-of-iterm2) |
+| [`configs/windows/winget/`](configs/windows/winget) | `apps.json` (`winget import` list of desktop apps) | [15](docs/15-installed-apps.md#reinstall-everything-at-once) |
 | [`scripts/windows/`](scripts/windows) | `Install-WindowsShellConfig`, `Add-GitBashTerminalProfile`, `Install-Neovim`, `Remove-JsonBom`, `New-JetBrainsShortcuts`, `Remove-StaleUninstallEntries` | [01](docs/01-windows-terminal-and-fonts.md), [06](docs/06-oh-my-posh.md#fixes-and-explanations), [12](docs/12-jetbrains-toolbox.md), [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 | [`scripts/nvim/`](scripts/nvim) | `bootstrap.lua`: headless first-run install of parsers + Mason packages (used by both Neovim scripts) | [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 | [`scripts/wsl/base-packages/`](scripts/wsl/base-packages) | per-distro package scripts + [README](scripts/wsl/base-packages/README.md) | [03](docs/03-base-packages.md) |

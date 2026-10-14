@@ -1,0 +1,65 @@
+{
+  "$schema": "https://aka.ms/winget-packages.schema.2.0.json",
+  "CreationDate": "2026-10-14T00:00:00.000-00:00",
+  "Sources": [
+    {
+      "SourceDetails": {
+        "Argument": "https://cdn.winget.microsoft.com/cache",
+        "Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+        "Name": "winget",
+        "Type": "Microsoft.PreIndexed.Package"
+      },
+      "Packages": [
+        { "PackageIdentifier": "Microsoft.Office" },
+        { "PackageIdentifier": "Microsoft.Outlook" },
+        { "PackageIdentifier": "Microsoft.Teams" },
+        { "PackageIdentifier": "Obsidian.Obsidian" },
+        { "PackageIdentifier": "Spotify.Spotify" },
+        { "PackageIdentifier": "OBSProject.OBSStudio" },
+        { "PackageIdentifier": "HandBrake.HandBrake" },
+        { "PackageIdentifier": "Mozilla.Firefox" },
+        { "PackageIdentifier": "Google.Chrome" },
+        { "PackageIdentifier": "Opera.Opera" },
+        { "PackageIdentifier": "SlackTechnologies.Slack" },
+        { "PackageIdentifier": "Zulip.Zulip" },
+        { "PackageIdentifier": "Zoom.Zoom.EXE" },
+        { "PackageIdentifier": "Discord.Discord" },
+        { "PackageIdentifier": "TeamSpeakSystems.TeamSpeakClient" },
+        { "PackageIdentifier": "Microsoft.VisualStudioCode" },
+        { "PackageIdentifier": "Microsoft.WindowsTerminal" },
+        { "PackageIdentifier": "JetBrains.Toolbox" },
+        { "PackageIdentifier": "GnuPG.Gpg4win" },
+        { "PackageIdentifier": "Anthropic.Claude" },
+        { "PackageIdentifier": "Adobe.Acrobat.Reader.64-bit" },
+        { "PackageIdentifier": "RIA.DigiDoc4" },
+        { "PackageIdentifier": "RIA.eIDsoftware" },
+        { "PackageIdentifier": "Google.GoogleDrive" },
+        { "PackageIdentifier": "Malwarebytes.Malwarebytes" },
+        { "PackageIdentifier": "Valve.Steam" },
+        { "PackageIdentifier": "EpicGames.EpicGamesLauncher" },
+        { "PackageIdentifier": "ElectronicArts.EADesktop" },
+        { "PackageIdentifier": "Ubisoft.Connect" },
+        { "PackageIdentifier": "RockstarGames.Launcher" },
+        { "PackageIdentifier": "MedalB.V.Medal" },
+        { "PackageIdentifier": "FACEITLTD.FACEITClient" },
+        { "PackageIdentifier": "FACEITLTD.FACEITAC" },
+        { "PackageIdentifier": "Modrinth.ModrinthApp" },
+        { "PackageIdentifier": "Roblox.RobloxStudio" }
+      ]
+    },
+    {
+      "SourceDetails": {
+        "Argument": "https://storeedgefd.dsx.mp.microsoft.com/v9.0",
+        "Identifier": "StoreEdgeFD",
+        "Name": "msstore",
+        "Type": "Microsoft.Rest"
+      },
+      "Packages": [
+        { "PackageIdentifier": "9WZDNCRFJ3TJ" },
+        { "PackageIdentifier": "XP8CBJ40XLBWKX" },
+        { "PackageIdentifier": "9PLM9XGG6VKS" },
+        { "PackageIdentifier": "XP8CLZL93F5Z4P" }
+      ]
+    }
+  ]
+}
