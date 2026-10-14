@@ -99,10 +99,19 @@ along the way is documented.
       - [Option 1: new account](docs/13-windows-account-rename.md#option-1-recommended-new-account)
       - [Option 2: rename the folder](docs/13-windows-account-rename.md#option-2-not-recommended-rename-the-folder)
       - [What to move for this setup](docs/13-windows-account-rename.md#what-to-move-for-this-setup)
+  - **Neovim**
+    - [16 — Neovim (Josean's setup on Windows + WSL) and advanced tmux](docs/16-tmux-neovim-advanced.md)
+      - [Terminal: WezTerm (instead of iTerm2)](docs/16-tmux-neovim-advanced.md#terminal-wezterm-instead-of-iterm2)
+      - [Prerequisites](docs/16-tmux-neovim-advanced.md#1-prerequisites)
+      - [Link the config](docs/16-tmux-neovim-advanced.md#2-link-the-config-both-systems-use-the-repo-folder)
+      - [Layout](docs/16-tmux-neovim-advanced.md#3-layout)
+      - [Plugins and keys](docs/16-tmux-neovim-advanced.md#4-plugins-and-keys-leader--space)
+      - [Differences from Josean's config](docs/16-tmux-neovim-advanced.md#5-differences-from-joseans-config-and-why)
+      - [Verify](docs/16-tmux-neovim-advanced.md#6-verify)
+      - [References](docs/16-tmux-neovim-advanced.md#references)
   - **Planned (TBD)**
     - [15 — Installed apps on this computer](docs/15-installed-apps.md)
-    - [16 — Advanced tmux + Neovim setup](docs/16-tmux-neovim-advanced.md)
-      - [References for later](docs/16-tmux-neovim-advanced.md#references-for-later)
+    - [16 — tmux advanced setup](docs/16-tmux-neovim-advanced.md#tmux-advanced-setup-tbd)
   - **Reference**
     - [14 — Troubleshooting (every error and its fix)](docs/14-troubleshooting.md)
       - [Quick health check for all distros](docs/14-troubleshooting.md#quick-health-check-powershell-all-distros)
@@ -194,6 +203,7 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 - [ ] Git identity + GPG signing set, `git log --show-signature` shows a good signature — [10](docs/10-git-ssh-gpg.md)
 - [ ] `ssh -T git@github.com` greets you by name; ssh-agent holds the key — [10](docs/10-git-ssh-gpg.md#6-ssh-keys-for-github-push--pull)
 - [ ] Docker Desktop WSL integration enabled where needed — [11](docs/11-docker.md)
+- [ ] Neovim: config linked on both systems, `:checkhealth vim.lsp` / `nvim-treesitter` clean — [16](docs/16-tmux-neovim-advanced.md#6-verify)
 - [ ] Health check passes — [14](docs/14-troubleshooting.md#quick-health-check-powershell-all-distros)
 
 ## Repository layout
@@ -213,6 +223,8 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 | [`configs/wsl/p10k/`](configs/wsl/p10k) | `p10k.zsh` (Rainbow, fixed icons) | [07](docs/07-oh-my-zsh-powerlevel10k.md) |
 | [`configs/wsl/bin/`](configs/wsl/bin) | `xdg-open` shim | [08](docs/08-tmux.md#tmux-open-on-arch--fedora-xdg-open-shim) |
 | [`configs/wsl/wsl-conf/`](configs/wsl/wsl-conf) | `wsl.conf.example` | [02](docs/02-wsl-basics.md#arch-linux-create-a-sudo-user-fresh-install-starts-as-root) |
+| [`configs/nvim/`](configs/nvim) | Neovim config (Windows + WSL): `init.lua`, `lua/sander/…`, `after/`, `lazy-lock.json` | [16](docs/16-tmux-neovim-advanced.md#3-layout) |
+| [`configs/windows/wezterm/`](configs/windows/wezterm) | `.wezterm.lua` (WezTerm, iTerm2 replacement) | [16](docs/16-tmux-neovim-advanced.md#terminal-wezterm-instead-of-iterm2) |
 | [`scripts/windows/`](scripts/windows) | `Install-WindowsShellConfig`, `Add-GitBashTerminalProfile`, `Remove-JsonBom`, `New-JetBrainsShortcuts`, `Remove-StaleUninstallEntries` | [01](docs/01-windows-terminal-and-fonts.md), [06](docs/06-oh-my-posh.md#fixes-and-explanations), [12](docs/12-jetbrains-toolbox.md) |
 | [`scripts/wsl/base-packages/`](scripts/wsl/base-packages) | per-distro package scripts + [README](scripts/wsl/base-packages/README.md) | [03](docs/03-base-packages.md) |
 | [`scripts/wsl/`](scripts/wsl) | `bootstrap.sh` + one script per component | [Setup order](#each-wsl-distro) |
