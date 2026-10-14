@@ -4,7 +4,9 @@ local fzf_build = vim.fn.has("win32") == 1 and "mkdir build 2>nul & zig cc -O3 -
 
 return {
   "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
+  -- master instead of Josean's 0.1.x: 0.1.x calls nvim-treesitter.parsers.ft_to_lang (old master API),
+  -- which crashes the file preview with nvim-treesitter's main branch; master uses vim.treesitter directly
+  branch = "master",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = fzf_build },
