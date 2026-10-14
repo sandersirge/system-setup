@@ -36,6 +36,7 @@
 | `CreateProcessCommon: chdir(...) failed 2` | `wsl` started from a Windows folder Linux can't map | add `--cd ~` | [02](02-wsl-basics.md) |
 | `Wsl/Service/HCS_E_TERMINATED` | WSL VM stopped mid-command | rerun | [02](02-wsl-basics.md) |
 | `wsl -d X -- sh -c '...$var...'` wrong output | the login shell expands `$var` first | use `wsl -d X -e sh -c '...'` | [02](02-wsl-basics.md) |
+| Windows Neovim ignores the config (`:echo $MYVIMRC` empty) although the folder "exists" | the `%LOCALAPPDATA%\nvim` junction was created from a packaged app (Claude desktop): Windows redirects new `AppData` folders into the app's private copy | create links/folders under `AppData` from your own shell: `New-Item -ItemType Junction -Path $env:LOCALAPPDATA\nvim -Target <repo>\configs\nvim` | [16](16-tmux-neovim-advanced.md) |
 | window/tab title shows `${debian_chroot:+...}user@host: ~` | Kali's `precmd` prints `TERM_TITLE` with `print -P`, which doesn't expand `${...}` | `print -Pnr -- "${(e)TERM_TITLE}"` (fixed in `configs/wsl/zsh/zshrc*`) | [04](04-zsh.md) |
 | zsh first-start menu (`zsh-newuser-install`) | no `~/.zshrc` | `touch ~/.zshrc` | [04](04-zsh.md) |
 | Arch: no normal user / no sudo | fresh image is root only | `useradd`, `visudo`, default user | [02](02-wsl-basics.md#arch-linux-create-a-sudo-user-fresh-install-starts-as-root) |
