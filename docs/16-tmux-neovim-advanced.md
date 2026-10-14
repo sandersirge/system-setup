@@ -37,8 +37,56 @@ His "coolnight" colors are unchanged and match the Neovim theme.
 | tree-sitter CLI ≥ 0.26.1 | `brew install tree-sitter-cli` | GitHub release zip → `%LOCALAPPDATA%\Programs\tree-sitter` + PATH (below) |
 | C compiler | `build-essential` (gcc) | Visual Studio Build Tools (C++) — tree-sitter finds it; `winget install zig.zig` for telescope-fzf-native |
 | Node / Python / Java 21+ | base packages (Node 22, Python 3.15 via brew, OpenJDK 25) | Node, Python 3.15, Java 23 |
-| Rust (rust-analyzer, rustfmt) | `curl https://sh.rustup.rs -sSf \| sh -s -- -y` + `rustup component add rust-analyzer rust-src rustfmt clippy` | `winget install Rustlang.Rustup`, then `rustup default stable` + same components |
-| clipboard | `win32yank.exe` in `~/.local/bin` ([releases](https://github.com/equalsraf/win32yank/releases)) | built in |
+| Rust (rust-analyzer, rustfmt) | rustup — [below](#rust-toolchain-rustup) | rustup — [below](#rust-toolchain-rustup) |
+| clipboard | win32yank — [below](#clipboard-in-wsl-win32yank) | built in |
+
+The scripts in [`scripts/`](../scripts) install all of this: `scripts/wsl/install-neovim.sh` (WSL) and
+`scripts/windows/Install-Neovim.ps1` (Windows) — see [Install with the scripts](#install-with-the-scripts).
+
+### Rust toolchain (rustup)
+
+rust-analyzer (LSP) and rustfmt (formatter) come from rustup, not Mason, so they always match the
+installed compiler. Neovim enables rust-analyzer automatically once it is on `PATH`.
+
+**WSL** (no sudo; rustup adds `. "$HOME/.cargo/env"` to `~/.profile`, `~/.bashrc`, `~/.zshenv`):
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"
+rustup component add rust-analyzer rust-src rustfmt clippy
+```
+
+**Windows** — the default toolchain (MSVC) needs the Visual Studio Build Tools with the C++ workload
+(check: `& "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64`):
+
+```powershell
+winget install Rustlang.Rustup
+# new PowerShell window:
+rustup default stable
+rustup component add rust-analyzer rust-src rustfmt clippy
+```
+
+Verify (both): `rustc --version; cargo --version; rustfmt --version; rust-analyzer --version`
+(this setup: 1.99.0). In Neovim, in a Cargo project: `:checkhealth vim.lsp` lists `rust_analyzer`,
+`gd` works, and saving a `.rs` file runs rustfmt. The first open of a project indexes the standard
+library (up to a minute on Windows).
+
+### Clipboard in WSL (win32yank)
+
+`clipboard=unnamedplus` makes `y` / `p` use the system clipboard. Inside WSL Neovim needs a helper
+to reach the Windows clipboard; without one `:checkhealth provider.clipboard` reports *No clipboard
+tool found* and yanks never leave Neovim. [win32yank](https://github.com/equalsraf/win32yank) is the
+standard helper; Neovim detects `win32yank.exe` on `PATH` automatically.
+
+```bash
+url=https://github.com/equalsraf/win32yank/releases/latest/download/win32yank-x64.zip
+tmp=$(mktemp -d) && curl -fsSL "$url" -o "$tmp/w.zip" && unzip -q "$tmp/w.zip" -d "$tmp"
+install -m 755 "$tmp/win32yank.exe" ~/.local/bin/win32yank.exe && rm -rf -- "$tmp"
+```
+
+Test: `printf hi | win32yank.exe -i && win32yank.exe -o` prints `hi`, and the text is in the Windows
+clipboard; in Neovim `:echo provider#clipboard#Executable()` → `win32yank`. `~/.local/bin` must be on
+`PATH` (it is, via `.zshrc`). Windows Neovim needs nothing extra.
 
 tree-sitter CLI on Windows (not on winget):
 
@@ -64,6 +112,27 @@ New-Item -ItemType Junction -Path $env:LOCALAPPDATA\nvim -Target $HOME\Downloads
 
 Check: `:echo $MYVIMRC` → the `init.lua` path. First start installs all plugins (lazy.nvim),
 26 treesitter parsers and 20 Mason packages; restart once afterwards.
+
+### Install with the scripts
+
+Both scripts do sections 1–2 plus the first-run installs, are safe to re-run, and take the repo
+path from their own location:
+
+| System | Command | Does |
+|---|---|---|
+| WSL distro | `bash scripts/wsl/install-neovim.sh` (or `bash scripts/wsl/bootstrap.sh --with-neovim` for the whole distro setup) | brew: neovim, ripgrep, fd, lazygit, tree-sitter-cli · rustup + components · win32yank · `~/.config/nvim` symlink · plugins, parsers, Mason |
+| Windows (**your own PowerShell**) | `.\scripts\windows\Install-Neovim.ps1` | winget: Neovim, ripgrep, fd, lazygit, zig, rustup, WezTerm · tree-sitter CLI + PATH · rust components · `%LOCALAPPDATA%\nvim` junction · `~\.wezterm.lua` · plugins, parsers, Mason |
+
+The first-run part is [`scripts/nvim/bootstrap.lua`](../scripts/nvim/bootstrap.lua): it installs the
+parsers from `lua/sander/parsers.lua` and every Mason package named in the mason-lspconfig /
+mason-tool-installer specs, waits for them and prints a summary:
+
+```text
+treesitter parsers: 26/26 installed
+mason packages: 20/20 installed
+plugins: 42 (all installed)
+rust-analyzer on PATH: true | clipboard provider: win32yank
+```
 
 ## 3. Layout
 

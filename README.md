@@ -153,6 +153,7 @@ tmux ([08](docs/08-tmux.md)), eza / logo-ls / grc / bat ([09](docs/09-ls-colors-
 | 7. Git + GPG | `winget install GnuPG.Gpg4win`, import key, `git config` | [10](docs/10-git-ssh-gpg.md) |
 | 8. Docker | Docker Desktop → WSL integration | [11](docs/11-docker.md) |
 | 9. IDEs | JetBrains Toolbox, `New-JetBrainsShortcuts.ps1` | [12](docs/12-jetbrains-toolbox.md) |
+| 10. Neovim + WezTerm (run in your own PowerShell) | `.\scripts\windows\Install-Neovim.ps1` | [16 › scripts](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 
 If PowerShell refuses to run the scripts, see [01a › Execution policy](docs/01a-powershell-profile.md#execution-policy-running-ps1-files).
 
@@ -178,6 +179,7 @@ Run the scripts from the repo through `/mnt/c/...` ([02 › Accessing files](doc
 | `install-tmux.sh` | `~/.tmux.conf`, TPM, 11 plugins | [08](docs/08-tmux.md) |
 | `install-xdg-open-shim.sh` | `~/.local/bin/xdg-open` where missing | [08 › shim](docs/08-tmux.md#tmux-open-on-arch--fedora-xdg-open-shim) |
 | `install-logo-ls.sh` | logo-ls (Nerd Fonts v3 build) | [09 › logo-ls](docs/09-ls-colors-and-cli-tools.md#logo-ls-nerd-fonts-v3-fixed-build) |
+| `install-neovim.sh` (only with `--with-neovim`) | Neovim + tools, rustup, win32yank, config link, plugins, parsers, Mason | [16 › scripts](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 
 Fedora instead uses Powerlevel10k:
 
@@ -225,7 +227,8 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 | [`configs/wsl/wsl-conf/`](configs/wsl/wsl-conf) | `wsl.conf.example` | [02](docs/02-wsl-basics.md#arch-linux-create-a-sudo-user-fresh-install-starts-as-root) |
 | [`configs/nvim/`](configs/nvim) | Neovim config (Windows + WSL): `init.lua`, `lua/sander/…`, `after/`, `lazy-lock.json` | [16](docs/16-tmux-neovim-advanced.md#3-layout) |
 | [`configs/windows/wezterm/`](configs/windows/wezterm) | `.wezterm.lua` (WezTerm, iTerm2 replacement) | [16](docs/16-tmux-neovim-advanced.md#terminal-wezterm-instead-of-iterm2) |
-| [`scripts/windows/`](scripts/windows) | `Install-WindowsShellConfig`, `Add-GitBashTerminalProfile`, `Remove-JsonBom`, `New-JetBrainsShortcuts`, `Remove-StaleUninstallEntries` | [01](docs/01-windows-terminal-and-fonts.md), [06](docs/06-oh-my-posh.md#fixes-and-explanations), [12](docs/12-jetbrains-toolbox.md) |
+| [`scripts/windows/`](scripts/windows) | `Install-WindowsShellConfig`, `Add-GitBashTerminalProfile`, `Install-Neovim`, `Remove-JsonBom`, `New-JetBrainsShortcuts`, `Remove-StaleUninstallEntries` | [01](docs/01-windows-terminal-and-fonts.md), [06](docs/06-oh-my-posh.md#fixes-and-explanations), [12](docs/12-jetbrains-toolbox.md), [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
+| [`scripts/nvim/`](scripts/nvim) | `bootstrap.lua`: headless first-run install of parsers + Mason packages (used by both Neovim scripts) | [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 | [`scripts/wsl/base-packages/`](scripts/wsl/base-packages) | per-distro package scripts + [README](scripts/wsl/base-packages/README.md) | [03](docs/03-base-packages.md) |
 | [`scripts/wsl/`](scripts/wsl) | `bootstrap.sh` + one script per component | [Setup order](#each-wsl-distro) |
 

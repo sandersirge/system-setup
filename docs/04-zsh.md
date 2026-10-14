@@ -106,6 +106,27 @@ zsh -ic 'echo "as=${ZSH_AUTOSUGGEST_STRATEGY:+yes} hl=${ZSH_HIGHLIGHT_VERSION:-n
 - `COLORTERM=24bit` is not set by default → exported in `.zshrc` so tools use truecolor.
 - tmux side: `set -as terminal-features ',xterm-256color:RGB'` in `.tmux.conf` ([08](08-tmux.md)).
 
+## 5b. Broken completion links (Docker Desktop `_docker`)
+
+Docker Desktop's WSL integration symlinks `/usr/share/zsh/vendor-completions/_docker` to
+`/mnt/wsl/docker-desktop/cli-tools/...`. That target only exists in distros where the integration
+is currently active — elsewhere the link dangles and every new shell / tmux pane prints:
+
+```text
+compinit:527: no such file or directory: /usr/share/zsh/vendor-completions/_docker
+```
+
+Deleting the link doesn't stick (Docker Desktop recreates it). All `.zshrc` variants contain a block
+right before `compinit` (before `source $ZSH/oh-my-zsh.sh` on Fedora) that, **only if a broken link
+exists**, swaps that folder in `fpath` for `~/.cache/zsh-vendor-completions` — a copy with only the
+working files. zsh's own `_docker` completion still works.
+
+Check which distros have the dangling link:
+
+```bash
+find /usr/share/zsh/vendor-completions -xtype l
+```
+
 ## 6. After editing
 
 Existing tabs keep the old shell. Reload with `exec zsh` (or open a new tab). Symptom of a stale

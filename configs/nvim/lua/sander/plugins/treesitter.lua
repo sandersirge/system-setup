@@ -1,14 +1,7 @@
 -- nvim-treesitter `main` branch (the maintained rewrite for Neovim 0.12).
 -- Josean's repo pins the old `master` branch (require("nvim-treesitter.configs")); this is the same
 -- setup ported to the new API. Needs the tree-sitter CLI (>= 0.26.1) and a C compiler to build parsers.
-local parsers = {
-  -- Josean's list
-  "json", "javascript", "typescript", "tsx", "yaml", "html", "css", "prisma", "markdown",
-  "markdown_inline", "svelte", "graphql", "bash", "lua", "vim", "dockerfile", "gitignore",
-  "query", "vimdoc", "c",
-  -- added for the languages set up in Mason (Java, C/C++, Rust, Python) + common config formats
-  "java", "cpp", "rust", "python", "toml", "regex",
-}
+local parsers = require("sander.parsers") -- list lives in lua/sander/parsers.lua (also used by the bootstrap script)
 
 return {
   "nvim-treesitter/nvim-treesitter",

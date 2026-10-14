@@ -82,6 +82,28 @@ unless you use a custom one. Remove a stray/typo key, e.g.: `git config --global
 git log -1 --show-signature      # after a commit
 ```
 
+### Passphrase cache (how often GPG asks)
+
+gpg-agent remembers the passphrase only **10 minutes** by default (`default-cache-ttl 600`), so with
+`commit.gpgsign=true` a pinentry window pops up again and again. If nobody answers it, the commit
+fails with `gpg: signing failed: Timeout` / `fatal: failed to write commit object` (the staged
+changes stay staged; just commit again). This setup caches it for **8 hours**:
+
+`%APPDATA%\gnupg\gpg-agent.conf` (the GnuPG home is shown by `gpgconf --list-dirs homedir`):
+
+```text
+default-cache-ttl 28800
+max-cache-ttl 28800
+```
+
+```powershell
+& 'C:\Program Files\GnuPG\bin\gpgconf.exe' --reload gpg-agent
+& 'C:\Program Files\GnuPG\bin\gpgconf.exe' --list-options gpg-agent | Select-String '^(default|max)-cache-ttl:'
+```
+
+`default-cache-ttl` = seconds since the passphrase was last *used*; `max-cache-ttl` = hard limit since
+it was *entered*. Forget it immediately: `gpgconf --reload gpg-agent` (or `gpg-connect-agent reloadagent /bye`).
+
 ## 5. Add the public key to GitHub / GitLab
 
 ```powershell

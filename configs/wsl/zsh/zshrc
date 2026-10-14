@@ -30,6 +30,21 @@ bindkey '^[[F' end-of-line                        # end
 bindkey '^[[Z' undo                               # shift + tab undo last action
 
 # enable completion features
+# Docker Desktop links _docker into /usr/share/zsh/vendor-completions, pointing into
+# /mnt/wsl/docker-desktop. In distros without active Docker integration that link dangles and
+# compinit fails ("no such file or directory: .../_docker"). If any link there is broken, use a
+# cached copy of the folder that contains only the working files.
+() {
+  local d=/usr/share/zsh/vendor-completions
+  local -a broken=( $d/*(N-@) )
+  (( ${#broken} )) || return 0
+  local c=${XDG_CACHE_HOME:-$HOME/.cache}/zsh-vendor-completions
+  rm -rf -- "$c" && mkdir -p -- "$c"
+  local f
+  for f in $d/*(N-.); do ln -s -- "$f" "$c/${f:t}"; done
+  local i=${fpath[(i)$d]}
+  (( i <= ${#fpath} )) && fpath[$i]=$c
+}
 autoload -Uz compinit
 compinit -d ~/.cache/zcompdump
 zstyle ':completion:*:*:*:*:*' menu select
