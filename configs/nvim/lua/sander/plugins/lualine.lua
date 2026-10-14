@@ -1,3 +1,25 @@
+-- lualine shows an icon for the file format; Josean set it to the Apple logo (macOS).
+-- Show the logo of the OS this Neovim runs on instead (Windows, or the WSL/Linux distro).
+local function current_os_icon()
+  if vim.fn.has("win32") == 1 then
+    return "\u{e70f}" -- Windows
+  end
+  local id = ""
+  local f = io.open("/etc/os-release", "r")
+  if f then
+    id = (f:read("*a"):match("\nID=\"?([%w_-]+)") or ""):lower()
+    f:close()
+  end
+  local icons = {
+    ubuntu = "\u{f31b}",
+    debian = "\u{f306}",
+    kali = "\u{f327}",
+    arch = "\u{f303}",
+    fedora = "\u{f30a}",
+  }
+  return icons[id] or "\u{f17c}" -- Tux for any other Linux
+end
+local os_icon = current_os_icon()
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -62,7 +84,7 @@ return {
             color = { fg = "#ff9e64" },
           },
           { "encoding" },
-          { "fileformat", symbols = { unix = "" } },
+          { "fileformat", symbols = { unix = os_icon, dos = os_icon, mac = os_icon } }, -- icon of the OS Neovim runs on
           { "filetype" },
         },
       },
