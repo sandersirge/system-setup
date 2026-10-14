@@ -12,6 +12,9 @@ return {
       view = {
         width = 50,
         relativenumber = true,
+        -- also show the absolute number on the cursor line (otherwise it shows 0). Files opened
+        -- from the tree inherit the tree window's options, so this fixes their windows too.
+        number = true,
       },
       -- change folder arrow icons
       renderer = {
