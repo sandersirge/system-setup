@@ -1,5 +1,5 @@
--- lualine shows an icon for the file format; Josean set it to the Apple logo (macOS).
--- Show the logo of the OS this Neovim runs on instead (Windows, or the WSL/Linux distro).
+-- Josean set the file-format symbol to the Apple logo (macOS). Here: one block for the line endings
+-- (Tux / Windows logo) and a separate block with the logo of the OS this Neovim runs on.
 local function current_os_icon()
   if vim.fn.has("win32") == 1 then
     return "\u{e70f}" -- Windows
@@ -84,7 +84,10 @@ return {
             color = { fg = "#ff9e64" },
           },
           { "encoding" },
-          { "fileformat", symbols = { unix = os_icon, dos = os_icon, mac = os_icon } }, -- icon of the OS Neovim runs on
+          -- line endings: Tux = LF (unix), Windows = CRLF (dos), Apple = CR (old mac)
+          { "fileformat", symbols = { unix = "\u{e712}", dos = "\u{e70f}", mac = "\u{e711}" } },
+          -- OS this Neovim runs on (Windows, or the WSL/Linux distro)
+          { function() return os_icon end },
           { "filetype" },
         },
       },
