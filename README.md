@@ -36,6 +36,7 @@ along the way is documented.
       - [Distros in this setup](docs/02-wsl-basics.md#distros-in-this-setup)
       - [Everyday WSL commands](docs/02-wsl-basics.md#everyday-wsl-commands-powershell--cmd)
       - [Arch Linux: create a sudo user, default user](docs/02-wsl-basics.md#arch-linux-create-a-sudo-user-fresh-install-starts-as-root)
+      - [Memory and disk limits (.wslconfig)](docs/02-wsl-basics.md#memory-and-disk-limits-wslconfig)
       - [systemd "State: degraded"](docs/02-wsl-basics.md#systemd-state-degraded-in-systemctl-status)
       - [Accessing files between Windows and Linux](docs/02-wsl-basics.md#accessing-files)
     - [03 — Base packages (per-distro scripts)](docs/03-base-packages.md) · [scripts README](scripts/wsl/base-packages/README.md)
@@ -112,6 +113,11 @@ along the way is documented.
       - [Verify](docs/16-tmux-neovim-advanced.md#6-verify)
       - [tmux (Josean's setup) → 08](docs/16-tmux-neovim-advanced.md#tmux-joseans-setup)
       - [References](docs/16-tmux-neovim-advanced.md#references)
+  - **Languages**
+    - [17 — Language SDKs and runtimes (WSL)](docs/17-languages.md)
+      - [Which tool installs what](docs/17-languages.md#which-tool-installs-what)
+      - [Versions with mise](docs/17-languages.md#versions-with-mise)
+      - [JavaScript frameworks: Next.js, React](docs/17-languages.md#javascript-frameworks-nextjs-react)
   - **Apps**
     - [15 — Installed apps on this computer](docs/15-installed-apps.md)
       - [Reinstall everything at once](docs/15-installed-apps.md#reinstall-everything-at-once)
@@ -187,6 +193,10 @@ Run the scripts from the repo through `/mnt/c/...` ([02 › Accessing files](doc
 | `install-logo-ls.sh` | logo-ls (Nerd Fonts v3 build) | [09 › logo-ls](docs/09-ls-colors-and-cli-tools.md#logo-ls-nerd-fonts-v3-fixed-build) |
 | `install-neovim.sh` (only with `--with-neovim`) | Neovim + tools, rustup, win32yank, config link, plugins, parsers, Mason | [16 › scripts](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 
+Not part of `bootstrap.sh` (large, Ubuntu + Fedora only): `bash scripts/wsl/install-languages.sh`
+installs the C/C++, Python, Node, Go, Rust, Java/Kotlin, Erlang/Elixir/Gleam, Lua, Perl, Ruby,
+PHP, Haskell, .NET and Zig toolchains ([17](docs/17-languages.md)).
+
 Fedora instead uses Powerlevel10k:
 
 ```bash
@@ -233,6 +243,7 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 | [`configs/wsl/wsl-conf/`](configs/wsl/wsl-conf) | `wsl.conf.example` | [02](docs/02-wsl-basics.md#arch-linux-create-a-sudo-user-fresh-install-starts-as-root) |
 | [`configs/nvim/`](configs/nvim) | Neovim config (Windows + WSL): `init.lua`, `lua/sander/…`, `after/`, `lazy-lock.json` | [16](docs/16-tmux-neovim-advanced.md#3-layout) |
 | [`configs/windows/wezterm/`](configs/windows/wezterm) | `.wezterm.lua` (WezTerm, iTerm2 replacement) | [16](docs/16-tmux-neovim-advanced.md#terminal-wezterm-instead-of-iterm2) |
+| [`configs/windows/wsl/`](configs/windows/wsl) | `.wslconfig` (WSL memory cap, memory reclaim, sparse disks) | [02](docs/02-wsl-basics.md#memory-and-disk-limits-wslconfig) |
 | [`configs/windows/winget/`](configs/windows/winget) | `apps.json` (`winget import` list of desktop apps) | [15](docs/15-installed-apps.md#reinstall-everything-at-once) |
 | [`scripts/windows/`](scripts/windows) | `Install-WindowsShellConfig`, `Add-GitBashTerminalProfile`, `Install-Neovim`, `Remove-JsonBom`, `New-JetBrainsShortcuts`, `Remove-StaleUninstallEntries` | [01](docs/01-windows-terminal-and-fonts.md), [06](docs/06-oh-my-posh.md#fixes-and-explanations), [12](docs/12-jetbrains-toolbox.md), [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 | [`scripts/nvim/`](scripts/nvim) | `bootstrap.lua`: headless first-run install of parsers + Mason packages (used by both Neovim scripts) | [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |

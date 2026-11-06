@@ -101,6 +101,36 @@ id                  # should list the wheel group
 sudo pacman -Syu
 ```
 
+## Memory and disk limits (`.wslconfig`)
+
+All distros run in one WSL 2 VM. Without settings it may use up to **half the RAM** (8 GB of
+16 GB) and it returns memory slowly. With language runtimes, builds and Windows apps running at
+the same time, Windows then pages to disk and freezes for a moment.
+[`configs/windows/wsl/.wslconfig`](../configs/windows/wsl/.wslconfig) → `%USERPROFILE%\.wslconfig`:
+
+```ini
+[wsl2]
+memory=6GB                    # cap the VM's RAM
+
+[experimental]
+autoMemoryReclaim=gradual     # give unused Linux memory (page cache) back to Windows
+sparseVhd=true                # new distro disks shrink when files are deleted
+```
+
+```powershell
+Copy-Item configs\windows\wsl\.wslconfig $HOME\.wslconfig
+wsl --shutdown                # closes every Linux shell; settings apply on the next start
+```
+
+Existing distro disks don't become sparse by themselves. Run this once per distro (WSL shut down):
+
+```powershell
+wsl --manage kali-linux --set-sparse true
+```
+
+Check: inside any distro, `free -h` shows about 6 GB total. `wsl --shutdown` also frees the memory
+right away, for example before gaming.
+
 ## systemd: "State: degraded" in `systemctl status`
 
 Seen on `Ubuntu` (not on `Ubuntu-26.04`, same config):

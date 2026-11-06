@@ -1,0 +1,14 @@
+# %USERPROFILE%\.wslconfig - settings for the WSL 2 VM shared by all distros (docs/02)
+# Apply with: wsl --shutdown  (then open a distro again)
+
+[wsl2]
+# Cap the Linux VM's RAM. Without this WSL may take up to 50% of RAM (8 GB of 16 GB)
+# and is slow to return it, which made Windows page to disk and freeze briefly.
+memory=6GB
+
+[experimental]
+# Give memory Linux no longer uses (page cache) back to Windows gradually.
+autoMemoryReclaim=gradual
+# New distro disks (.vhdx) shrink automatically when files inside are deleted.
+# Existing ones: wsl --manage <distro> --set-sparse true
+sparseVhd=true

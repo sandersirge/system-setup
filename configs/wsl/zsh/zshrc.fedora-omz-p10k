@@ -130,6 +130,15 @@ source $ZSH/oh-my-zsh.sh
 
 # ---- carried over from the previous .zshrc (see ~/.zshrc.pre-oh-my-zsh) ----
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+
+# Language toolchains (docs/17): rustup, ghcup, .NET; mise last so its versions win
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
+if [ -d "$HOME/.dotnet" ]; then
+  export DOTNET_ROOT="$HOME/.dotnet" DOTNET_CLI_TELEMETRY_OPTOUT=1
+  export PATH="$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH"
+fi
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
 export PATH="$HOME/.local/bin:$PATH"
 export COLORTERM=24bit
 
