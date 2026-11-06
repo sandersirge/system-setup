@@ -228,8 +228,8 @@ Neovim-specific errors and fixes are in [14 — Troubleshooting](14-troubleshoot
 ## tmux (Josean's setup)
 
 Done — documented in [08 — tmux](08-tmux.md): prefix `Ctrl+a`, `|` / `-` splits, `prefix h/j/k/l`
-resize, `prefix m` maximize, vi copy mode, `escape-time 10` (no Esc delay in Neovim), Tokyo Night
-status bar (matches the Neovim colors), resurrect with pane contents + continuum, and the extra
+resize, `prefix m` maximize, vi copy mode, `escape-time 10` (no Esc delay in Neovim), themepack
+`powerline/double/cyan` status bar (Tokyo Night kept as an option), resurrect with pane contents + continuum, and the extra
 plugins. With vim-tmux-navigator on both sides, `Ctrl+h/j/k/l` moves between tmux panes and Neovim
 splits as one.
 ## References

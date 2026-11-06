@@ -47,6 +47,10 @@
 | window/tab title shows `${debian_chroot:+...}user@host: ~` | Kali's `precmd` prints `TERM_TITLE` with `print -P`, which doesn't expand `${...}` | `print -Pnr -- "${(e)TERM_TITLE}"` (fixed in `configs/wsl/zsh/zshrc*`) | [04](04-zsh.md) |
 | zsh first-start menu (`zsh-newuser-install`) | no `~/.zshrc` | `touch ~/.zshrc` | [04](04-zsh.md) |
 | Arch: no normal user / no sudo | fresh image is root only | `useradd`, `visudo`, default user | [02](02-wsl-basics.md#arch-linux-create-a-sudo-user-fresh-install-starts-as-root) |
+| `_omp_get_prompt:3: text file busy: ~/.local/bin/oh-my-posh`, raw prompt code shown | Oh My Posh's weekly auto-upgrade (`upgrade --auto`) hung while replacing the binary, so new shells can't run it | `pkill -f 'oh-my-posh upgrade --auto'`, then `exec zsh`. The binary was already complete | [06](06-oh-my-posh.md#auto-upgrade) |
+| tmux auto-save (continuum) never runs | the theme loaded after continuum and replaced `status-right`, removing the save command | load themepack **before** continuum. Check: `tmux show -gv status-right \| grep -c continuum_save` → `1` | [08](08-tmux.md#plugins) |
+| Windows freezes for a moment, then continues; RAM full | WSL VM takes up to 50% of RAM and returns it slowly. Windows pages to disk (worse when C: is nearly full) | `.wslconfig` with `memory=6GB` + `autoMemoryReclaim=gradual`; `wsl --shutdown` before gaming | [02](02-wsl-basics.md#memory-and-disk-limits-wslconfig) |
+| IDE desktop shortcut blank / does nothing | `.lnk` written as 0 bytes while C: was full | `.\scripts\windows\New-JetBrainsShortcuts.ps1` | [12](12-jetbrains-toolbox.md) |
 
 ## Quick health check (PowerShell, all distros)
 

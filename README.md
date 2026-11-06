@@ -216,7 +216,7 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 - [ ] `$PROFILE` loads Oh My Posh + Terminal-Icons in PowerShell — [01a](docs/01a-powershell-profile.md)
 - [ ] Oh My Posh prompt in PowerShell, cmd, Git Bash and five distros — [06](docs/06-oh-my-posh.md)
 - [ ] Powerlevel10k on Fedora with arrow and fixed icons — [07](docs/07-oh-my-zsh-powerlevel10k.md)
-- [ ] tmux: prefix `Ctrl+a`, Tokyo Night status bar, `ls ~/.tmux/plugins` includes `tmux-tokyo-night` — [08](docs/08-tmux.md#verify)
+- [ ] tmux: prefix `Ctrl+a`, cyan powerline status bar, `ls ~/.tmux/plugins` includes `tmux-themepack` — [08](docs/08-tmux.md#verify)
 - [ ] `ls` (eza) and `lls` (logo-ls) show icons; `cat`, `ping`, `--help` are colored — [09](docs/09-ls-colors-and-cli-tools.md)
 - [ ] Git identity + GPG signing set, `git log --show-signature` shows a good signature — [10](docs/10-git-ssh-gpg.md)
 - [ ] `ssh -T git@github.com` greets you by name; ssh-agent holds the key — [10](docs/10-git-ssh-gpg.md#6-ssh-keys-for-github-push--pull)

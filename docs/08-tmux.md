@@ -54,7 +54,7 @@ fresh server: `tmux kill-server`, then `tmux` again.
 | [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) | `Ctrl+h/j/k/l` across tmux panes **and** Neovim splits (Neovim side: [16](16-tmux-neovim-advanced.md)) |
 | [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) | save/restore sessions, windows, panes, folders, pane contents |
 | [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) | auto-save every 15 min, auto-restore on start |
-| [tmux-tokyo-night](https://github.com/fabioluciano/tmux-tokyo-night) | status bar theme matching Neovim's tokyonight — loaded **last** (earlier breaks continuum's auto-save) |
+| [tmux-themepack](https://github.com/jimeh/tmux-themepack) | status bar theme `powerline/double/cyan` — loaded **before** continuum (see below) |
 | [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible) | sane defaults *(extra)* |
 | [tmux-yank](https://github.com/tmux-plugins/tmux-yank) | copy mode `y` → Windows clipboard (`clip.exe` on WSL) *(extra)* |
 | [tmux-open](https://github.com/tmux-plugins/tmux-open) | open selection (URL/file) with `o` *(extra)* |
@@ -62,8 +62,16 @@ fresh server: `tmux kill-server`, then `tmux` again.
 | [tmux-fzf](https://github.com/sainnhe/tmux-fzf) | fzf menu for sessions/windows/panes/commands *(extra)* |
 | [tmux-logging](https://github.com/tmux-plugins/tmux-logging) | log pane output / save history to a file *(extra)* |
 
-Previous theme, kept commented out in the config (swap the two `@plugin` lines to switch back):
-`jimeh/tmux-themepack` with `@themepack 'powerline/default/cyan'`.
+**Theme order matters for auto-save.** When continuum loads, it adds its save command to
+`status-right`. themepack *replaces* `status-right`, so it has to load first, or auto-save
+silently stops. Check: `tmux show -gv status-right | grep -c continuum_save` should print `1`.
+Continuum also auto-saves from only one tmux server at a time. A second server started next to
+your normal one (for example a test with its own `TMUX_TMPDIR`) shows `0`, which is expected.
+
+Other themes: change `@themepack` (for example `powerline/default/cyan`,
+`powerline/block/blue`; list in the plugin's `powerline/` folder). Tokyo Night (matches
+Neovim's tokyonight) is kept commented out in the config. That plugin goes **last** instead.
+Comment out the two themepack lines and enable it to switch.
 
 ## Keys (prefix = `Ctrl+a`)
 
