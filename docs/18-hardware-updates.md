@@ -16,6 +16,10 @@ Versions before updating (6 Nov 2026):
 | AMD Chipset Software | 7.09.23.2230 |
 | SSD firmware (Kingston SNVS1000GB) | S8442101 |
 
+After the BIOS update (6 Nov 2026): **BIOS 3636** (2026-01-04), RAM 2 × 8 GB at 3600 MT/s
+(D.O.C.P.), Secure Boot on (UEFI), TPM 2.0 present and ready, SVM on (WSL starts). Chipset driver
+and SSD firmware: still to do.
+
 Check the current versions again in PowerShell:
 
 ```powershell
@@ -67,8 +71,37 @@ prompt is expected.
    file, and confirm **Yes**.
 5. **Never cut the power while it flashes** (no power button, no power strip). It takes about 5
    minutes and restarts by itself, possibly more than once. A black screen for a while is normal.
-6. If a message about the **fTPM** appears ("fTPM NV corrupted or fTPM NV structure changed"),
-   press **N** to keep the existing fTPM data. **Y** resets it, which breaks Windows Hello PIN/face.
+6. The first boot shows **"Please enter setup to recover BIOS setting"**. That's expected: the
+   settings are back at defaults (the RAM shows DDR4-2133 until D.O.C.P. is on again). Press
+   **F1** / **Del** and go through the table below.
+7. **fTPM prompt** ("We detected a new fTPM firmware version/processor, which will change the
+   data structure of the storage space for firmware TPM"):
+   - **Y** resets the fTPM. Windows gets a working, empty TPM. The only cost: Windows Hello PIN
+     and face/fingerprint have to be set up again ("I forgot my PIN" at sign-in).
+   - **N** keeps the old fTPM data **but leaves the fTPM disabled**. Windows then sees no TPM
+     (Windows 11's requirement fails, the Hello PIN usually breaks anyway), and the prompt
+     usually comes back on every boot. N only makes sense if you plan to go back to the old
+     BIOS/CPU, or as a stopgap while you fetch a BitLocker key.
+
+   Decide by encryption. Check it *before* flashing, in Terminal (Admin):
+
+   ```powershell
+   manage-bde -status C:     # Protection Off / Fully Decrypted  -> not encrypted
+   ```
+
+   | Encryption | Answer |
+   |---|---|
+   | off (this PC) | **Y**, then set up the Windows Hello PIN again |
+   | on, recovery key backed up ([aka.ms/myrecoverykey](https://aka.ms/myrecoverykey)) | **Y**; type the key if Windows asks for it |
+   | on, **no** key | **N** for now (fTPM stays off). Get or back up the key, reboot, answer **Y** |
+
+   Y is needed only once; the prompt doesn't come back afterwards. If N was pressed and the
+   prompt doesn't reappear: BIOS → **Advanced → AMD fTPM configuration → TPM Device Selection →
+   Firmware TPM**, then save and restart. It may ask again; answer Y.
+
+   *On this PC (6 Nov 2026) N was pressed first, following an earlier, wrong version of this
+   guide. Afterwards the fTPM was active again: `tpmtool getdeviceinformation` showed TPM 2.0
+   present and ready.*
 
 ### Settings to check after the flash
 
@@ -98,7 +131,8 @@ Boot, set **CSM → Enabled** again.
 Get-CimInstance Win32_BIOS | Select-Object SMBIOSBIOSVersion, ReleaseDate   # 3636
 Get-CimInstance Win32_PhysicalMemory | Select-Object ConfiguredClockSpeed   # D.O.C.P. speed
 Confirm-SecureBootUEFI                                                       # True (admin)
-Get-Tpm | Select-Object TpmPresent, TpmReady                                 # True True (admin)
+Get-Tpm | Select-Object TpmPresent, TpmReady                                 # True True (admin); False if fTPM was left off (N)
+tpmtool getdeviceinformation                                                 # same without admin: "TPM Present: True"
 wsl -l -v                                                                    # distros start (SVM on)
 ```
 
