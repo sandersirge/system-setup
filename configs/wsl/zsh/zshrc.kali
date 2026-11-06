@@ -316,3 +316,20 @@ alias ll='eza --icons -l --git'
 alias la='eza --icons -a'
 alias l='eza --icons'
 alias lls='logo-ls'
+# Extra CLI tools (docs/19); every line only runs if the tool is installed
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"   # z <part of a path>, zi = fzf picker
+if (( $+commands[yazi] )); then
+  # y: yazi file manager; quitting with q leaves the shell in the folder you browsed to
+  y() {
+    local tmp cwd
+    tmp=$(mktemp -t yazi-cwd.XXXXXX)
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd < "$tmp"
+    [[ -n $cwd && $cwd != "$PWD" ]] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
+  }
+fi
+# fastfetch greeting in a new terminal, but not in every tmux pane or Neovim terminal
+if (( $+commands[fastfetch] )) && [[ -o interactive && -z $TMUX && -z $NVIM ]]; then
+  fastfetch
+fi

@@ -54,6 +54,21 @@ then create a new volume.
 
 ## 1. BIOS (ASUS EZ Flash 3)
 
+> **Before flashing: make sure Windows can reactivate itself.** A BIOS update plus an fTPM reset
+> changes the hardware fingerprint Windows activation uses. On this PC (6 Nov 2026) Windows 11
+> Home became **unactivated** afterwards: OEM key, error `0x803F7001`, and "I changed hardware"
+> found no device, because the license wasn't linked to a Microsoft account. Check first:
+> **Settings → System → Activation** should say *"…activated with a digital license linked to
+> your Microsoft account"*. If it doesn't, sign in with a Microsoft account (Settings →
+> Accounts) and check again, and keep the product key (receipt/email) at hand.
+>
+> If it happens anyway: Activation → Troubleshoot → *I changed hardware*. If that finds nothing,
+> use phone/web activation. `slui 4` no longer opens a window on new Windows 11 builds, so use
+> `slmgr /dti` (installation ID), Microsoft's activation number for your country
+> (<https://www.microsoft.com/licensing/existing-customer/activation-centers>), then
+> `slmgr /atp <confirmation ID>` in Terminal (Admin), and check with `slmgr /xpr`. Or the
+> **Get Help** app → "activate Windows" → contact support.
+
 Target: **BIOS 3636** (downloaded 6 Nov 2026; no intermediate version required). BitLocker /
 device encryption is **off** on this PC (no recovery key in the Microsoft account), so no key
 prompt is expected.

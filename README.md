@@ -118,6 +118,16 @@ along the way is documented.
       - [Which tool installs what](docs/17-languages.md#which-tool-installs-what)
       - [Versions with mise](docs/17-languages.md#versions-with-mise)
       - [JavaScript frameworks: Next.js, React](docs/17-languages.md#javascript-frameworks-nextjs-react)
+  - **Fun and CLI tools**
+    - [19 — Fun commands, fetch tools and extra CLI tools](docs/19-fun-and-cli-tools.md)
+      - [Fun](docs/19-fun-and-cli-tools.md#fun)
+      - [Fetch](docs/19-fun-and-cli-tools.md#fetch)
+      - [Useful extras](docs/19-fun-and-cli-tools.md#useful-extras)
+  - **Arch desktop**
+    - [20 — Arch Linux desktop over Remote Desktop (XFCE + xrdp)](docs/20-arch-remote-desktop.md)
+      - [Setup](docs/20-arch-remote-desktop.md#setup-once)
+      - [Connect](docs/20-arch-remote-desktop.md#connect)
+      - [Troubleshooting](docs/20-arch-remote-desktop.md#troubleshooting)
   - **Hardware**
     - [18 — BIOS, chipset driver and SSD firmware updates](docs/18-hardware-updates.md)
   - **Apps**
@@ -197,7 +207,9 @@ Run the scripts from the repo through `/mnt/c/...` ([02 › Accessing files](doc
 
 Not part of `bootstrap.sh` (large, Ubuntu + Fedora only): `bash scripts/wsl/install-languages.sh`
 installs the C/C++, Python, Node, Go, Rust, Java/Kotlin, Erlang/Elixir/Gleam, Lua, Perl, Ruby,
-PHP, Haskell, .NET and Zig toolchains ([17](docs/17-languages.md)).
+PHP, Haskell, .NET and Zig toolchains ([17](docs/17-languages.md)). Also separate (Ubuntu):
+`bash scripts/wsl/install-fun-tools.sh`: hollywood, cmatrix, fastfetch, zoxide, yazi and more ([19](docs/19-fun-and-cli-tools.md)). Arch only:
+`bash scripts/wsl/install-arch-rdp.sh`: XFCE desktop over Remote Desktop, opened with `Start-ArchDesktop.ps1` ([20](docs/20-arch-remote-desktop.md)).
 
 Fedora instead uses Powerlevel10k:
 
@@ -247,7 +259,7 @@ bash scripts/wsl/setup-omz-p10k.sh --my-p10k && exec zsh
 | [`configs/windows/wezterm/`](configs/windows/wezterm) | `.wezterm.lua` (WezTerm, iTerm2 replacement) | [16](docs/16-tmux-neovim-advanced.md#terminal-wezterm-instead-of-iterm2) |
 | [`configs/windows/wsl/`](configs/windows/wsl) | `.wslconfig` (WSL memory cap, memory reclaim, sparse disks) | [02](docs/02-wsl-basics.md#memory-and-disk-limits-wslconfig) |
 | [`configs/windows/winget/`](configs/windows/winget) | `apps.json` (`winget import` list of desktop apps) | [15](docs/15-installed-apps.md#reinstall-everything-at-once) |
-| [`scripts/windows/`](scripts/windows) | `Install-WindowsShellConfig`, `Add-GitBashTerminalProfile`, `Install-Neovim`, `Remove-JsonBom`, `New-JetBrainsShortcuts`, `Remove-StaleUninstallEntries` | [01](docs/01-windows-terminal-and-fonts.md), [06](docs/06-oh-my-posh.md#fixes-and-explanations), [12](docs/12-jetbrains-toolbox.md), [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
+| [`scripts/windows/`](scripts/windows) | `Install-WindowsShellConfig`, `Add-GitBashTerminalProfile`, `Install-Neovim`, `Start-ArchDesktop`, `Remove-JsonBom`, `New-JetBrainsShortcuts`, `Remove-StaleUninstallEntries` | [01](docs/01-windows-terminal-and-fonts.md), [06](docs/06-oh-my-posh.md#fixes-and-explanations), [12](docs/12-jetbrains-toolbox.md), [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 | [`scripts/nvim/`](scripts/nvim) | `bootstrap.lua`: headless first-run install of parsers + Mason packages (used by both Neovim scripts) | [16](docs/16-tmux-neovim-advanced.md#install-with-the-scripts) |
 | [`scripts/wsl/base-packages/`](scripts/wsl/base-packages) | per-distro package scripts + [README](scripts/wsl/base-packages/README.md) | [03](docs/03-base-packages.md) |
 | [`scripts/wsl/`](scripts/wsl) | `bootstrap.sh` + one script per component | [Setup order](#each-wsl-distro) |
