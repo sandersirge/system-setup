@@ -50,27 +50,65 @@ then create a new volume.
 
 ## 1. BIOS (ASUS EZ Flash 3)
 
+Target: **BIOS 3636** (downloaded 6 Nov 2026; no intermediate version required). BitLocker /
+device encryption is **off** on this PC (no recovery key in the Microsoft account), so no key
+prompt is expected.
+
 1. Download the **latest BIOS** from the
    [support page](https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b550-plus-wi-fi/helpdesk_bios/).
    Read the version notes: if a version says it must be installed first ("must update to
    version X before…"), flash that one first, then the latest.
-2. Unzip it. If the zip includes **BIOSRenamer.exe**, run it next to the `.CAP` file, then copy
-   the `.CAP` file to the root of the FAT32 stick.
-3. Plug the stick into a **rear** USB port (directly on the motherboard).
+2. Unzip it and copy the `.CAP` file to the root of the FAT32 stick. **BIOSRenamer** is only
+   needed for FlashBack (below). EZ Flash takes the original file name.
+3. Plug the stick into the rear USB port inside the box labeled **BIOS** (black USB 2.0, next to
+   the **BIOS FLBK** button). Avoid the blue USB 3 and Type-C ports for this.
 4. Restart and press **Del** repeatedly to enter the BIOS. Press **F7** for Advanced Mode, then go
-   to **Tool → ASUS EZ Flash 3 Utility** → *via Storage Device(s)*, pick the `.CAP` file and confirm.
-5. **Never cut the power while it flashes** (no power button, no power strip). It takes a few
+   to **Tool → ASUS EZ Flash 3 Utility** → *via Storage Device(s)*, pick the stick and the `.CAP`
+   file, and confirm **Yes**.
+5. **Never cut the power while it flashes** (no power button, no power strip). It takes about 5
    minutes and restarts by itself, possibly more than once. A black screen for a while is normal.
-6. Back in the BIOS (**Del**), re-check the settings that are reset to defaults:
-   - **Ai Tweaker → Ai Overclock Tuner → D.O.C.P.**: RAM at its rated speed
-   - **Advanced → CPU Configuration → SVM Mode → Enabled**. **WSL / Docker need this**
-   - **Boot** order: Windows Boot Manager on the Kingston SSD first
-   - **F10** to save and exit
-7. In Windows, check: `wsl -l -v` starts the distros, and the BIOS version shows the new number.
+6. If a message about the **fTPM** appears ("fTPM NV corrupted or fTPM NV structure changed"),
+   press **N** to keep the existing fTPM data. **Y** resets it, which breaks Windows Hello PIN/face.
 
-If Windows asks for the **BitLocker recovery key** after the update, it's on
-<https://account.microsoft.com/devices/recoverykey>. Device encryption sees the firmware change.
+### Settings to check after the flash
 
+The update resets the BIOS to defaults. Press **Del**, then **F7**, and check:
+
+| Tab | Setting | Value | |
+|---|---|---|---|
+| Main | BIOS Version | 3636 | check |
+| Main | System Date / Time | correct | check |
+| Ai Tweaker | Ai Overclock Tuner | **D.O.C.P.** (or EXPO/D.O.C.P.): RAM at its rated speed, not 2133/2400 | **must** |
+| Advanced | CPU Configuration → **SVM Mode** | **Enabled**: WSL and Docker need it | **must** |
+| Advanced | AMD fTPM configuration → TPM Device Selection | **Firmware TPM**: Windows 11 needs it | **must** |
+| Advanced | PCI Subsystem Settings → Above 4G Decoding / Re-Size BAR | Enabled / Auto: a few % FPS on the RTX 3060 Ti (needs CSM off) | nice to have |
+| Boot | CSM (Compatibility Support Module) | **Disabled** (pure UEFI) | **must** |
+| Boot | Secure Boot → OS Type | **Windows UEFI mode**: Windows 11, Vanguard, FACEIT AC | **must** |
+| Boot | Boot Option #1 | **Windows Boot Manager** (KINGSTON SNVS1000GB) | **must** |
+| Boot | Fast Boot | leave the default | — |
+| Monitor | Q-Fan Configuration | redo custom fan curves if you had them | check |
+| Monitor | CPU temperature | about 30–50 °C idle | check |
+
+**F10** → check the change list → **OK**. If Windows doesn't boot after you changed CSM or Secure
+Boot, set **CSM → Enabled** again.
+
+### Check in Windows
+
+```powershell
+Get-CimInstance Win32_BIOS | Select-Object SMBIOSBIOSVersion, ReleaseDate   # 3636
+Get-CimInstance Win32_PhysicalMemory | Select-Object ConfiguredClockSpeed   # D.O.C.P. speed
+Confirm-SecureBootUEFI                                                       # True (admin)
+Get-Tpm | Select-Object TpmPresent, TpmReady                                 # True True (admin)
+wsl -l -v                                                                    # distros start (SVM on)
+```
+
+### Backup: BIOS FlashBack (if EZ Flash doesn't see the stick or refuses the file)
+
+1. Run `BIOSRenamer.exe` from the download folder; it renames the `.CAP` to the name FlashBack
+   expects. Copy the renamed file to the stick, into the **BIOS** port.
+2. Shut down Windows normally, but leave the PSU switched on and plugged in.
+3. Hold the **BIOS FLBK** button about 3 s until its light blinks. Wait until the light goes out
+   (3–8 minutes), then power on. A light that stays solid means the file or stick wasn't accepted.
 ## 2. AMD chipset driver
 
 1. <https://www.amd.com/en/support/download/drivers.html> → **Chipsets → AMD Socket AM4 → B550** → Submit.
