@@ -118,6 +118,8 @@ along the way is documented.
       - [Which tool installs what](docs/17-languages.md#which-tool-installs-what)
       - [Versions with mise](docs/17-languages.md#versions-with-mise)
       - [JavaScript frameworks: Next.js, React](docs/17-languages.md#javascript-frameworks-nextjs-react)
+  - **Hardware**
+    - [18 — BIOS, chipset driver and SSD firmware updates](docs/18-hardware-updates.md)
   - **Apps**
     - [15 — Installed apps on this computer](docs/15-installed-apps.md)
       - [Reinstall everything at once](docs/15-installed-apps.md#reinstall-everything-at-once)
